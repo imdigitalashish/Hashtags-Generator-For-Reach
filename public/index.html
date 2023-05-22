@@ -251,6 +251,7 @@
     <div class="centerThis"><textarea name="" id="" cols="90" rows="10"
             style="font-size: 20px; margin-inline: 20px;"></textarea></div>
 
+    <button onclick="copyTextarea();" class="custom-btn btn-5"><span>Copy</span></button>
 
 
 
@@ -260,12 +261,14 @@
 
         let input = document.querySelector("input");
 
-        let string = "";
 
         async function getData() {
             let request = await fetch(`/api/tags?query=${input.value.trim()}`);
             let response = await request.json();
+            string = "";
+
             response.tags.forEach((elem) => {
+
                 string += `#${elem} \n`
                 textarea.innerHTML = string;
             })
@@ -284,6 +287,24 @@
 
             }
         })
+
+
+        function copyTextarea() {
+            // Get the textarea element
+            const textarea = document.querySelector('textarea');
+
+            // Select the text inside the textarea
+            textarea.select();
+
+            // Copy the selected text to the clipboard
+            document.execCommand('copy');
+
+            // Optionally, you can also programmatically deselect the text
+            textarea.setSelectionRange(0, 0);
+
+            // Alert or perform any other action to indicate successful copying
+        }
+
 
 
     </script>
