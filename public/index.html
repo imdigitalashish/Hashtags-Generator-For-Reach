@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AshTags Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .centerThis {
+            display: flex;
+            justify-content: center;
+            width: 100vw;
+        }
+
+        .group {
+            position: relative;
+            margin-bottom: 45px;
+        }
+
+        input {
+            font-size: 18px;
+            padding: 10px 10px 10px 5px;
+            display: block;
+            width: 300px;
+            border: none;
+            border-bottom: 1px solid #757575;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        /* LABEL ======================================= */
+        label {
+            color: #999;
+            font-size: 18px;
+            font-weight: normal;
+            position: absolute;
+            pointer-events: none;
+            left: 5px;
+            top: 10px;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        /* active state */
+        input:focus~label,
+        input:valid~label {
+            top: -20px;
+            font-size: 14px;
+            color: #5264AE;
+        }
+
+        /* BOTTOM BARS ================================= */
+        .bar {
+            position: relative;
+            display: block;
+            width: 300px;
+        }
+
+        .bar:before,
+        .bar:after {
+            content: '';
+            height: 2px;
+            width: 0;
+            bottom: 1px;
+            position: absolute;
+            background: #5264AE;
+            transition: 0.2s ease all;
+            -moz-transition: 0.2s ease all;
+            -webkit-transition: 0.2s ease all;
+        }
+
+        .bar:before {
+            left: 50%;
+        }
+
+        .bar:after {
+            right: 50%;
+        }
+
+        /* active state */
+        input:focus~.bar:before,
+        input:focus~.bar:after {
+            width: 50%;
+        }
+
+        /* HIGHLIGHTER ================================== */
+        .highlight {
+            position: absolute;
+            height: 60%;
+            width: 100px;
+            top: 25%;
+            left: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        textarea {
+            font-size: 20px;
+            margin-inline: 20px;
+            border-radius: 10px;
+            font-family: serif;
+            padding: 10px;
+        }
+
+        textarea:focus {
+            outline: none;
+        }
+
+        /* active state */
+        input:focus~.highlight {
+            -webkit-animation: inputHighlighter 0.3s ease;
+            -moz-animation: inputHighlighter 0.3s ease;
+            animation: inputHighlighter 0.3s ease;
+        }
+
+        /* ANIMATIONS ================ */
+        @-webkit-keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        @-moz-keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        @keyframes inputHighlighter {
+            from {
+                background: #5264AE;
+            }
+
+            to {
+                width: 0;
+                background: transparent;
+            }
+        }
+
+        .custom-btn {
+            width: 130px;
+            height: 40px;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 25px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 500;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+                7px 7px 20px 0px rgba(0, 0, 0, .1),
+                4px 4px 5px 0px rgba(0, 0, 0, .1);
+            outline: none;
+        }
+
+        /* 5 */
+        .btn-5 {
+            width: 130px;
+            height: 40px;
+            line-height: 42px;
+            padding: 0;
+            border: none;
+            background: rgb(255, 27, 0);
+            background: linear-gradient(0deg, rgba(255, 27, 0, 1) 0%, rgba(251, 75, 2, 1) 100%);
+        }
+
+        .btn-5:hover {
+            color: #f0094a;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .btn-5:before,
+        .btn-5:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2px;
+            width: 0;
+            background: #f0094a;
+            box-shadow:
+                -1px -1px 5px 0px #fff,
+                7px 7px 20px 0px #0003,
+                4px 4px 5px 0px #0002;
+            transition: 400ms ease all;
+        }
+
+        .btn-5:after {
+            right: inherit;
+            top: inherit;
+            left: 0;
+            bottom: 0;
+        }
+
+        .btn-5:hover:before,
+        .btn-5:hover:after {
+            width: 100%;
+            transition: 800ms ease all;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container py-4">
+        <div class="centerThis">
+            <h1 class="text-4xl font-semibold text-gray-900">AshTags Generator</h1>
+        </div>
+    </div><br><br>
+    <div class="centerThis">
+
+        <div class="group">
+            <input type="text" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Tags To Generateś</label><br>
+            <button class="custom-btn btn-5"><span>Generate Tags</span></button>
+        </div>
+
+    </div>
+    <div class="centerThis"><textarea name="" id="" cols="90" rows="10"
+            style="font-size: 20px; margin-inline: 20px;"></textarea></div>
+
+
+
+
+    <script>
+
+        let textarea = document.querySelector("textarea");
+
+        let input = document.querySelector("input");
+
+        let string = "";
+
+        input.addEventListener("keydown", async (event) => {
+
+            string = "";
+            if (event.key == "Enter") {
+                if (input.value.trim() == "") {
+                    alert("Please Enter some value");
+                    return;
+                }
+
+                let request = await fetch(`/api/tags?query=${input.value.trim()}`);
+                let response = await request.json();
+                response.tags.forEach((elem) => {
+                    string += `#${elem} \n`
+                    textarea.innerHTML = string;
+                })
+
+            }
+        })
+
+
+    </script>
+
+
+</body>
+
+
+
+</html>
