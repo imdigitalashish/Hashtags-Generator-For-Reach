@@ -244,7 +244,7 @@
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>Tags To Generateś</label><br>
-            <button class="custom-btn btn-5"><span>Generate Tags</span></button>
+            <button onclick="getData();" class="custom-btn btn-5"><span>Generate Tags</span></button>
         </div>
 
     </div>
@@ -262,7 +262,16 @@
 
         let string = "";
 
-        input.addEventListener("keydown", async (event) => {
+        async function getData() {
+            let request = await fetch(`/api/tags?query=${input.value.trim()}`);
+            let response = await request.json();
+            response.tags.forEach((elem) => {
+                string += `#${elem} \n`
+                textarea.innerHTML = string;
+            })
+        }
+
+        input.addEventListener("keydown", (event) => {
 
             string = "";
             if (event.key == "Enter") {
@@ -271,12 +280,7 @@
                     return;
                 }
 
-                let request = await fetch(`/api/tags?query=${input.value.trim()}`);
-                let response = await request.json();
-                response.tags.forEach((elem) => {
-                    string += `#${elem} \n`
-                    textarea.innerHTML = string;
-                })
+                getData();
 
             }
         })

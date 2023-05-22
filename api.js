@@ -32,6 +32,6 @@ app.get('/api/tags', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(7070, '0.0.0.0', () => {
   console.log('Server listening on port 3000');
 });
